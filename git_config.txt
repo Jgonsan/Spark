@@ -1,26 +1,82 @@
+# 1) Mudar para o diretório do projeto
 cd ~/Documents/dev/github/Spark
+# Vai para a pasta "Spark" no seu diretório Documents/dev/github.
+# Se a pasta não existir, o comando falhará; crie-a com `mkdir -p ~/Documents/dev/github/Spark` se necessário.
 
+# 2) Inicializar um repositório Git local
 git init
+# Cria um repositório Git vazio no diretório atual (cria a pasta .git).
+# Depois disso você pode começar a adicionar arquivos e fazer commits localmente.
 
+# 3) Criar (ou acrescentar) um README com título "Spark"
 echo "# Spark" >> README.md
+# Escreve a linha "# Spark" no arquivo README.md.
+# Usa >> para acrescentar (append). Se README.md não existir, ele será criado.
+# Se quiser substituir o conteúdo (em vez de acrescentar), use > em vez de >>.
 
+# 4) Adicionar todos os arquivos ao "staging area" do Git
 git add .
+# Adiciona (stage) todos os arquivos e mudanças do diretório atual para o próximo commit.
+# Você pode adicionar arquivos específicos com `git add <arquivo>` se preferir controle fino.
 
+# 5) Fazer o primeiro commit local
 git commit -m "fist commit"
+# Cria um commit com a mensagem "fist commit".
+# Observação: há um pequeno typo — provavelmente quis escrever "first commit".
+# Se quiser corrigir a mensagem depois, dá para usar `git commit --amend -m "first commit"` antes de push.
 
+# 6) Renomear a branch atual para "main"
 git branch -M main
+# -M força a renomeação (mesmo se já existir outra branch chamada "main").
+# Muitas plataformas usam "main" como branch principal atualmente (em vez de "master").
 
+# 7) Adicionar o repositório remoto (no GitHub)
 git remote add origin https://github.com/Jgonsan/Spark.git
+# Associa o nome remoto "origin" à URL do repositório no GitHub.
+# Após isso, "origin" será usado para push/pull por padrão.
+# Se já existir um 'origin' configurado, o comando falhará; use `git remote set-url origin <url>` para trocar.
 
+# 8) Enviar (push) a branch main ao repositório remoto e configurar upstream
 git push -u origin main
+# Envia a branch local "main" para o remoto "origin" e define "origin/main" como upstream.
+# O -u (ou --set-upstream) permite futuramente usar apenas `git push`/`git pull`.
+# OBS: esse push pode pedir autenticação (token pessoal, login via GitHub CLI, chave SSH, etc.).
+# Se usar HTTPS, hoje o GitHub exige um Personal Access Token (PAT) ou autenticação via browser.
+# Se preferir evitar digitar token, configure SSH e use uma URL SSH (git@github.com:...).
 
+# 9) Criar e trocar para uma nova branch "dev"
 git checkout -b dev
+# Cria a branch "dev" e muda para ela (equivalente a `git branch dev` + `git checkout dev`).
+# Use branches como "dev" para desenvolvimento separado do branch principal.
 
+# 10) Listar branches locais
 git branch
+# Mostra as branches locais; a branch atual aparece com um *.
 
+# 11) Enviar (push) a branch dev para o remoto e configurar upstream
 git push -u origin dev
+# Envia a branch "dev" para o remoto e configura upstream, assim como feito para "main".
 
-python3 -m  venv .venv
+# 12) Criar um ambiente virtual Python chamado .venv
+python3 -m venv .venv
+# Cria um virtualenv na pasta .venv dentro do projeto.
+# Isso isola dependências do projeto das do sistema global.
 
+# 13) Ativar o ambiente virtual (Linux/macOS)
 source .venv/bin/activate
+# Ativa o ambiente virtual no shell atual; o prompt normalmente muda para mostrar (.venv).
+# Agora `pip install` instala dentro de .venv; `python` aponta para o Python do .venv.
+# Para desativar, rode `deactivate`.
+
+echo ".venv/" >> .gitignore
+git add .gitignore
+git commit -m "Add .venv to .gitignore"
+git push
+
+
+pip freeze > requirements.txt
+
+pip install -r requirements.txt
+
+
 
