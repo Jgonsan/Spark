@@ -1,0 +1,26 @@
+cd ~/Documents/dev/github/Spark
+
+git init
+
+echo "# Spark" >> README.md
+
+git add .
+
+git commit -m "fist commit"
+
+git branch -M main
+
+git remote add origin https://github.com/Jgonsan/Spark.git
+
+git push -u origin main
+
+git checkout -b dev
+
+git branch
+
+git push -u origin dev
+
+python3 -m  venv .venv
+
+source .venv/bin/activate
+
